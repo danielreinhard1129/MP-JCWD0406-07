@@ -30,5 +30,10 @@
     "hooks": {
       "pre-commit": "npx lint-staged"
     }
+  },
+  "dependencies": {
+    "flowbite": "^2.2.1",
+    "nodemailer": "^6.9.8",
+    "plugin": "^0.3.3"
   }
 }
