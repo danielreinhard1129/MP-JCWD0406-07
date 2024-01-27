@@ -2,6 +2,7 @@
 import { forgotPasswordAction } from '@/actions/forgotPassword.Action';
 import { keepLoginAction } from '@/actions/keepLogin';
 import { loginAction } from '@/actions/login.action';
+import { findUserByReferralCodeAction } from '@/actions/referal/findReferalUser';
 import { registerAction } from '@/actions/register.action';
 import { resetPasswordAction } from '@/actions/resetPassword.Action';
 import { NextFunction, Request, Response } from 'express';
@@ -48,6 +49,16 @@ export class UserController {
       const email = req.user!.email;
       const result = await resetPasswordAction(email, req.body);
       return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async checkReferralCode(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { referralCode } = req.body;
+      const result = await findUserByReferralCodeAction(referralCode);
+      return res.status(result?.status).send(result);
     } catch (error) {
       next(error);
     }

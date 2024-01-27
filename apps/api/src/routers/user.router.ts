@@ -24,7 +24,15 @@ export class UserRouter {
       verifyToken,
       this.userController.resetPassword,
     );
+    this.router.post('/', this.userController.forgotPassword);
+    this.router.post(
+      '/check-referralcode',
+      this.userController.checkReferralCode,
+    );
   }
+
+  
+
 
   getRouter(): Router {
     return this.router;

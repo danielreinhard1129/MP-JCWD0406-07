@@ -8,7 +8,7 @@ export interface IUser {
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
-  codeReferral: string;
+  referralCode: string;
 }
 
 export interface IRole {

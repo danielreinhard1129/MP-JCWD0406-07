@@ -21,16 +21,68 @@ model Sample {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  firstName    String
-  lastName     String
-  codeReferral String   @unique
-  password     String   @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  isDeleted    Boolean  @default(false)
-  role         Role?
+  id             Int              @id @default(autoincrement())
+  email          String           @unique
+  firstName      String
+  lastName       String
+  referralCode   String           @unique
+  password       String           @unique
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  isDeleted      Boolean          @default(false)
+  role           Role?
+  CouponDiscount CouponDiscount?
+  ReferralPoints ReferralPoints[] @relation("Referrer")
+  Event          Event[]
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  locationId  Int
+  startDate   DateTime
+  endDate     DateTime
+  price       Float
+  limit       Int
+  booked      Int      @default(0)
+  thumbnail   String
+  userId      Int
+  createdAt   DateTime @default(now())
+  updateAt    DateTime @updatedAt
+
+  location       Location         @relation(fields: [locationId], references: [id])
+  user           User             @relation(fields: [userId], references: [id])
+  Event_category Event_category[]
+}
+
+model Location {
+  id        Int      @id @default(autoincrement())
+  city      String
+  country   String
+  createdAt DateTime @default(now())
+  Event     Event[]
+}
+
+model Event_category {
+  id         Int      @id @default(autoincrement())
+  categoryId Int
+  eventId    Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  category Category @relation(fields: [categoryId], references: [id])
+  event    Event    @relation(fields: [eventId], references: [id])
+}
+
+model Category {
+  id             Int              @id @default(autoincrement())
+  title          String
+  description    String
+  isDeleted      Boolean          @default(false)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  Event_category Event_category[]
 }
 
 model Role {
@@ -38,4 +90,24 @@ model Role {
   name   String
   userId Int    @unique
   user   User   @relation(fields: [userId], references: [id])
+}
+
+model CouponDiscount {
+  id                 Int      @id @default(autoincrement())
+  userId             Int      @unique
+  user               User     @relation(fields: [userId], references: [id])
+  couponCode         String
+  discountPersentase Int
+  dateReceived       DateTime @default(now())
+  expiresOn          DateTime
+}
+
+model ReferralPoints {
+  id             Int      @id @default(autoincrement())
+  referrerUserId Int
+  referredUserId Int      @unique
+  pointEarned    Int
+  dateEarned     DateTime @default(now())
+  expiresOn      DateTime
+  referrerUser   User     @relation("Referrer", fields: [referrerUserId], references: [id])
 }
