@@ -110,7 +110,7 @@ const AddEventForm: React.FC<AddEventFormProps> = ({ onAddEvent }) => {
         image: imageUrl,
       };
 
-      await axios.post('http://localhost:4000/api/events', newEvent);
+      await axios.post('http://localhost:8000/api/events', newEvent);
 
       console.log('New Event:', newEvent);
 

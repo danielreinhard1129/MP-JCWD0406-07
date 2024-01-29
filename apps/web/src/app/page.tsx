@@ -22,7 +22,7 @@ const Home: React.FC = () => {
     try {
       const response = await axios.get('http://localhost:8000/api/events');
       if (response.data && Array.isArray(response.data.data)) {
-        setEvents(response.data.data);
+        setEvents(response.data.data.reverse());
       } else {
         console.error('Invalid response data:', response.data);
       }

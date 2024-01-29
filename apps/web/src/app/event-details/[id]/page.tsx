@@ -6,14 +6,14 @@ import Modal from '../../../components/Modal';
 const EventDetailsComponent: React.FC = () => {
   const [eventDetails, setEventDetails] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [numTickets, setNumTickets] = useState(1); // State to track the number of tickets to buy
+  const [numTickets, setNumTickets] = useState(1);
 
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
         const eventId = Number(window.location.pathname.split('/').pop());
         const response = await axios.get(
-          `http://localhost:4000/api/events/${eventId}`,
+          `http://localhost:8000/api/events/${eventId}`,
         );
         setEventDetails(response.data.data);
       } catch (error) {
@@ -35,7 +35,7 @@ const EventDetailsComponent: React.FC = () => {
   const handleTransactionSuccess = async () => {
     if (eventDetails) {
       try {
-        const updatedSeatCount = eventDetails.seat - numTickets; // Reduce available seats by the number of tickets
+        const updatedSeatCount = eventDetails.seat - numTickets;
         await axios.patch(
           `http://localhost:8000/api/events/${eventDetails.id}`,
           {
@@ -43,7 +43,6 @@ const EventDetailsComponent: React.FC = () => {
           },
         );
 
-        // Update the local state to reflect the new seat count
         setEventDetails((prevDetails) => ({
           ...prevDetails!,
           seat: updatedSeatCount,
@@ -70,17 +69,15 @@ const EventDetailsComponent: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const eventFee = eventDetails.price * numTickets * 0.1; // Update to calculate fee based on the number of tickets
-  const eventDelivery = 0;
-  const subtotal = eventDetails.price * numTickets; // Calculate subtotal based on the number of tickets
-
+  const eventFee = eventDetails.price * numTickets * 0.1;
+  const subtotal = eventDetails.price * numTickets;
   const eventDate = new Date(eventDetails.dateTime);
 
   const formattedDate = `${eventDate.getFullYear()}-${
     eventDate.getMonth() + 1
   }-${eventDate.getDate()}`;
   const formattedPrice = eventDetails.price.toLocaleString('en-US');
-  const total = subtotal + eventFee + eventDelivery;
+  const total = subtotal + eventFee;
   const formattedTotal = total.toLocaleString('en-US');
   return (
     <div
