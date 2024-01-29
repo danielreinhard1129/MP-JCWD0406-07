@@ -1,5 +1,5 @@
 import prisma from '@/prisma';
-import { IReferralPoints } from '@/models/reward.type';
+import { IReferralPoints } from '@/types/reward.type';
 
 export const createPointReferral = async (data: IReferralPoints) => {
   try {

@@ -28,7 +28,7 @@ export const Header = () => {
     };
     keepLogin();
   }, []);
-
+  
   const handleLogout = () => {
     localStorage.removeItem('token_auth');
     dispatch(logoutAction());
@@ -60,22 +60,66 @@ export const Header = () => {
         >
           <nav>
             <ul className="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
-              <li>
-                <a
-                  className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                  href="#"
-                >
-                  Find event
-                </a>
-              </li>
-              <li>
-                <a
-                  className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                  href="/add-event"
-                >
-                  Create event
-                </a>
-              </li>
+              {!user.id ? (
+                <>
+                  <li>
+                    <a
+                      className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                      href="/login"
+                    >
+                      Login
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                      href="/register"
+                    >
+                      Register
+                    </a>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <a
+                      className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                      href="/"
+                    >
+                      Find event
+                    </a>
+                  </li>
+                  {user.role.name === "promoter" && ( 
+                    <>
+                      <li>
+                        <a
+                          className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                          href="/dashboard"
+                        >
+                          Promotor Dashboard
+                        </a>
+                      </li>
+                    </>
+                  )}
+                 
+                  <li>
+                    <a
+                      className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                      href="/add-event"
+                    >
+                      Create event
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </a>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
         </div>

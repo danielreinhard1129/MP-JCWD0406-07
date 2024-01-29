@@ -6,6 +6,7 @@ export interface UserState {
   id: number;
   email: String;
   isDeleted: Boolean;
+  role: '';
 }
 
 // Define the initial state using that type
@@ -13,6 +14,7 @@ const initialState: UserState = {
   id: 0,
   email: '',
   isDeleted: false,
+  role: '',
 };
 
 export const userSlice = createSlice({
@@ -23,12 +25,14 @@ export const userSlice = createSlice({
     loginAction: (state, action: PayloadAction<UserState>) => {
       state.id = action.payload.id;
       state.email = action.payload.email;
+      state.role = action.payload.role;
       state.isDeleted = action.payload.isDeleted;
     },
     logoutAction: (state) => {
       state.id = 0;
       state.email = '';
       state.isDeleted = false;
+      state.id = 0;
     },
   },
 });

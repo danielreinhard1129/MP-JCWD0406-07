@@ -1,5 +1,5 @@
 import prisma from '@/prisma';
-import { ICouponDiscount } from '@/models/reward.type';
+import { ICouponDiscount } from '@/types/reward.type';
 
 export const createDiscountReferral = async (data: ICouponDiscount) => {
   try {
