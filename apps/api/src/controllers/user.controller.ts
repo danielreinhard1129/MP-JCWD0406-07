@@ -1,9 +1,10 @@
-import { forgotPasswordAction } from '@/action/forgotPassword.Action';
-import { keepLoginAction } from '@/action/keepLogin';
-import { loginAction } from '@/action/login.action';
-import { findUserByReferralCodeAction } from '@/action/referal/findReferalUser';
-import { registerAction } from '@/action/register.action';
-import { resetPasswordAction } from '@/action/resetPassword.Action';
+
+import { forgotPasswordAction } from '@/actions/forgotPassword.Action';
+import { keepLoginAction } from '@/actions/keepLogin';
+import { loginAction } from '@/actions/login.action';
+import { findUserByReferralCodeAction } from '@/actions/referal/findReferalUser';
+import { registerAction } from '@/actions/register.action';
+import { resetPasswordAction } from '@/actions/resetPassword.Action';
 import getAllUser from '@/repositories/getAllUser';
 import { NextFunction, Request, Response } from 'express';
 
@@ -53,7 +54,8 @@ export class UserController {
       next(error);
     }
   }
-  async getAllUsers(req: Request, res: Response, next: NextFunction) {
+
+  async getAllUsers(req: Request, res: Response, next: NextFunction){
     try {
       const result = await getAllUser();
       return res.status(200).send(result);
