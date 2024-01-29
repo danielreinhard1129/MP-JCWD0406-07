@@ -5,6 +5,7 @@ import { loginAction } from '@/actions/login.action';
 import { findUserByReferralCodeAction } from '@/actions/referal/findReferalUser';
 import { registerAction } from '@/actions/register.action';
 import { resetPasswordAction } from '@/actions/resetPassword.Action';
+import getAllUser from '@/repositories/getAllUser';
 import { NextFunction, Request, Response } from 'express';
 
 export class UserController {
@@ -48,6 +49,15 @@ export class UserController {
     try {
       const email = req.user!.email;
       const result = await resetPasswordAction(email, req.body);
+      return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getAllUsers(req: Request, res: Response, next: NextFunction){
+    try {
+      const result = await getAllUser();
       return res.status(200).send(result);
     } catch (error) {
       next(error);

@@ -27,7 +27,7 @@ export const Header = () => {
     };
     keepLogin();
   }, []);
-
+  
   const handleLogout = () => {
     localStorage.removeItem('token_auth');
     dispatch(logoutAction());
@@ -85,6 +85,19 @@ export const Header = () => {
                       Find event
                     </a>
                   </li>
+                  {user.role.name === "promoter" && ( 
+                    <>
+                      <li>
+                        <a
+                          className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                          href="/dashboard"
+                        >
+                          Promotor Dashboard
+                        </a>
+                      </li>
+                    </>
+                  )}
+                 
                   <li>
                     <a
                       className="inline-block no-underline hover:text-black hover:underline py-2 px-4"

@@ -40,7 +40,7 @@ const CardLogin = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      try {
+      try { 
         const { email, password } = values;
         const { data } = await axios.post(baseUrl + '/users/login', {
           email,
@@ -49,7 +49,7 @@ const CardLogin = () => {
 
         dispatch(loginAction(data.data));
         localStorage.setItem('token_auth', data.token);
-        alert('login success');
+        alert('login success')
         router.push('/');
 
         //   console.log(userData);

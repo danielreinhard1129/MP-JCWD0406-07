@@ -1,4 +1,3 @@
-import RegisterCart from '@/components/RegisterCart'
 import React from 'react'
 
 const page = () => {
