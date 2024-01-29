@@ -32,9 +32,7 @@ export class UserRouter {
     );
   }
 
-  
-
-
+ 
   getRouter(): Router {
     return this.router;
   }

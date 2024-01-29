@@ -53,7 +53,6 @@ export class UserController {
       next(error);
     }
   }
-
   async getAllUsers(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await getAllUser();

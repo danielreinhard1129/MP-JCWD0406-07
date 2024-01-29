@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 
-const secretKey = process.env.JWT_SECRET_KEY as string;
+
+const secretKey = process.env.JWT_SECRET_KEY!;
 
 interface PayloadToken {
   email: string;
@@ -31,16 +32,13 @@ export const verifyToken = (
   jwt.verify(token, secretKey, (err, payload) => {
     if (err) {
       if (err instanceof TokenExpiredError) {
-        return res.status(403).json({ message: 'Token expired' });
+        return res.status(403).send({ message: 'Token expired' });
       } else {
-        return res.status(403).json({ message: 'Invalid token' });
+        return res.status(403).send({ message: 'Invalid token' });
       }
     }
 
-    // Ensure payload is of type PayloadToken
-    const payloadToken = payload as PayloadToken;
-
-    req.user = payloadToken;
+    req.user = payload as PayloadToken;
 
     next();
   });
