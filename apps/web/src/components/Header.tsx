@@ -84,7 +84,7 @@ export const Header = () => {
                   <li>
                     <a
                       className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                      href="#"
+                      href="/"
                     >
                       Find event
                     </a>
@@ -105,7 +105,7 @@ export const Header = () => {
                   <li>
                     <a
                       className="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                      href="/CreateEvent"
+                      href="/add-event"
                     >
                       Create event
                     </a>

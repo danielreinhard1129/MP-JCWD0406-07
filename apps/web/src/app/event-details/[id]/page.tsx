@@ -2,11 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from '../../../components/Modal';
+import { useAppSelector } from '@/app/hooks';
+
 
 const EventDetailsComponent: React.FC = () => {
   const [eventDetails, setEventDetails] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [numTickets, setNumTickets] = useState(1);
+  const user = useAppSelector((state) => state.user);
 
   useEffect(() => {
     const fetchEventDetails = async () => {
@@ -100,12 +103,14 @@ const EventDetailsComponent: React.FC = () => {
         <p className="text-blue-500 mb-4">{eventDetails.category}</p>
         <p className="text-gray-500 mb-4">{eventDetails.location}</p>
         <p className="text-gray-500">Available seat: {eventDetails.seat}</p>
+        {user.role.name === "customer" && (
         <button
           className="bg-blue-500 text-white px-4 py-2 mt-4"
           onClick={openModal}
         >
           Buy Ticket
         </button>
+        )}
         <Modal
           isOpen={isModalOpen}
           onClose={closeModal}

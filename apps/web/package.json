@@ -20,11 +20,7 @@
     "formik": "^2.4.5",
     "json-server": "^1.0.0-alpha.21",
     "lodash": "^4.17.21",
-    "@reduxjs/toolkit": "^2.0.1",
-    "@types/recharts": "^1.8.29",
-    "axios": "^1.6.5",
-    "flowbite-react": "^0.7.2",
-    "formik": "^2.4.5",
+    
     "next": "14.0.4",
     "postcss": "^8.4.33",
     "react": "^18",
