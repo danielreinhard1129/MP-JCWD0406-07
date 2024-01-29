@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 
+
 const secretKey = process.env.JWT_SECRET_KEY!;
 
 interface PayloadToken {
@@ -23,7 +24,7 @@ export const verifyToken = (
   const token = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
-    return res.status(401).send({
+    return res.status(401).json({
       message: 'Authentication failed, token is missing',
     });
   }

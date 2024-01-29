@@ -1,9 +1,10 @@
-
-import { forgotPasswordAction } from '@/actions/forgotPassword.Action';
-import { keepLoginAction } from '@/actions/keepLogin';
-import { loginAction } from '@/actions/login.action';
-import { registerAction } from '@/actions/register.action';
-import { resetPasswordAction } from '@/actions/resetPassword.Action';
+import { forgotPasswordAction } from '@/action/forgotPassword.Action';
+import { keepLoginAction } from '@/action/keepLogin';
+import { loginAction } from '@/action/login.action';
+import { findUserByReferralCodeAction } from '@/action/referal/findReferalUser';
+import { registerAction } from '@/action/register.action';
+import { resetPasswordAction } from '@/action/resetPassword.Action';
+import getAllUser from '@/repositories/getAllUser';
 import { NextFunction, Request, Response } from 'express';
 
 export class UserController {
@@ -48,6 +49,24 @@ export class UserController {
       const email = req.user!.email;
       const result = await resetPasswordAction(email, req.body);
       return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async getAllUsers(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await getAllUser();
+      return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async checkReferralCode(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { referralCode } = req.body;
+      const result = await findUserByReferralCodeAction(referralCode);
+      return res.status(result?.status).send(result);
     } catch (error) {
       next(error);
     }

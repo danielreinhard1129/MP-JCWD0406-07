@@ -1,3 +1,18 @@
+ng","referralCode":"3b4e43","password":"$2b$10$pBdKOMUV9/ALPrervQMwL.jIwRn75lUAgbCn6mQCrt8Kcu1I41P.e","createdAt":"2024-01-25T18:33:35.833Z","updatedAt":"2024-01-25T18:33:35.833Z","isDeleted":false
+trickysunday1566 — Today at 9:15 PM
+'use client';
+
+import axios, { AxiosError } from 'axios';
+import { useFormik } from 'formik';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+Expand
+message.txt
+15 KB
+﻿
+trickysunday1566
+trickysunday1566
+Im humble , so be humble
 'use client';
 
 import axios, { AxiosError } from 'axios';
@@ -5,6 +20,7 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import * as yup from 'yup';
 import YupPassword from 'yup-password';
 
@@ -77,6 +93,19 @@ const CardRegister = () => {
     },
   });
 
+  const handleCheck = async () => {
+    try {
+      const data = await axios.post(baseUrl + `/users/check-referralcode`, {
+        referralCode: inputReferral,
+      });
+      console.log(data);
+      alert('Referral code is found');
+    } catch (error) {
+      console.log(error);
+      alert('Referral code is not found');
+    }
+  };
+
   return (
     <div className="flex flex-col items-center h-screen w-full justify-center bg-[url('/festifybro.jpg')]">
       <div className="  p-3 bg-white rounded-md border-4 border-double border-black">
@@ -87,7 +116,7 @@ const CardRegister = () => {
           Sign Up ⇣⇣
           <hr className="font-extrabold" />
         </h1>
-
+        <ToastContainer />
         <form onSubmit={formik.handleSubmit}>
           <div className="relative mb-4">
             <input
@@ -255,24 +284,6 @@ const CardRegister = () => {
                 )}
               </div>
             </div>
-            <div className="relative flex-1 ml-2">
-              <input
-                id="codeReferral"
-                type="text"
-                aria-describedby="codeReferralHelp"
-                className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-600 focus:outline-none focus:ring-0 focus:border-gray-600 peer"
-                placeholder=" "
-                onChange={(e) => setInputReferral(e.target.value)}
-                value={inputReferral}
-                disabled={success}
-              />
-              <label
-                htmlFor="codeReferral"
-                className="absolute text-sm text-gray-700 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-[#f7f7f7] dark:bg-gray-900 px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-              >
-                Code Referral (optional)
-              </label>
-            </div>
           </>
 
           <button
@@ -291,7 +302,24 @@ const CardRegister = () => {
           >
             👌 Submit 👌
           </button>
-
+          <div className="relative flex flex-1 ">
+            <input
+              id="referralCode"
+              type="text"
+              aria-describedby="referralCodeHelp"
+              className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-600 focus:outline-none focus:ring-0 focus:border-gray-600 peer"
+              placeholder=" "
+              onChange={(e) => setInputReferral(e.target.value)}
+              value={inputReferral}
+            />
+            <label
+              htmlFor="referralCode"
+              className="absolute text-sm text-gray-700 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-[#f7f7f7] dark:bg-gray-900 px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+            >
+              Referral Code (optional)
+            </label>
+            
+          </div>
           <p className=" mt-4">
             Already have an account?{' '}
             <Link href="/login" className="font-bold hover:underline">

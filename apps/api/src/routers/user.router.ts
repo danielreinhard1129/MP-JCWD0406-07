@@ -14,7 +14,8 @@ export class UserRouter {
     this.initializeRoutes();
   }
 
-  private initializeRoutes(): void {
+  private initializeRoutes(): void { 
+    this.router.get('/',this.userController.getAllUsers)
     this.router.post('/register', this.userController.registerUser);
     this.router.post('/login', this.userController.loginUser);
     this.router.get('/keeplogin', verifyToken, this.userController.keepLogin);
@@ -24,8 +25,14 @@ export class UserRouter {
       verifyToken,
       this.userController.resetPassword,
     );
+    this.router.post('/', this.userController.forgotPassword);
+    this.router.post(
+      '/check-referralcode',
+      this.userController.checkReferralCode,
+    );
   }
 
+ 
   getRouter(): Router {
     return this.router;
   }
